@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11152b">
+<meta name="description" content="FITZONE — crée des séances adaptées à ton rythme et découvre ton espace sport.">
+<title>FITZONE — Ton espace sport</title>
+<style>
+:root{--bg:#0b1020;--panel:#151c35;--panel2:#20294a;--text:#f7f8ff;--muted:#b6bfd8;--purple:#a78bfa;--pink:#fb7185;--cyan:#5eead4;--yellow:#fbbf24;--line:#303b60;--good:#6ee7b7}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 8% 8%,#29205b 0,transparent 30%),radial-gradient(ellipse at 95% 28%,#123e50 0,transparent 26%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}
+button,input,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:1160px;margin:auto;padding:22px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 24px}
+.brand{font-weight:1000;font-size:1.55rem;letter-spacing:1.4px}.brand:before{content:"⚡";margin-right:8px}.brand span{background:linear-gradient(90deg,var(--purple),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill{border:1px solid #ffffff20;border-radius:999px;padding:8px 14px;color:#e0e7ff;font-size:.85rem;background:#ffffff0b;box-shadow:0 8px 30px #0002}
+.hero{padding:32px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;border:1px solid #ffffff18;border-radius:30px;background:linear-gradient(115deg,#201b43eF,#142c3ee8),url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1500&q=85') center/cover;box-shadow:0 22px 70px #0005;overflow:hidden;position:relative}
+.eyebrow{color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:2px;font-size:.75rem}
+.hero h1{font-size:clamp(2.3rem,6vw,4.35rem);line-height:1.04;margin:12px 0}.gradient{background:linear-gradient(90deg,#c4b5fd,#5eead4,#fda4af);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#e0e7ff;max-width:590px}
+.hero-art{min-height:255px;border:1px solid #ffffff35;border-radius:26px;background:linear-gradient(145deg,#ffffff22,#ffffff08),url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85') center/cover;display:grid;place-items:end start;padding:18px;font-size:2rem;position:relative;overflow:hidden;box-shadow:inset 0 -90px 80px #090d1dbb}
+.hero-art:before{content:"🔥 BOUGE À TON RYTHME";font-size:.8rem;letter-spacing:1.4px;font-weight:900;color:white;background:#111827b8;padding:9px 13px;border-radius:99px;backdrop-filter:blur(8px)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:17px;margin-top:20px}
+.card{background:linear-gradient(145deg,#1a2340f2,#11182df2);border:1px solid #ffffff17;border-radius:22px;padding:21px;box-shadow:0 12px 35px #0003;transition:transform .2s,border-color .2s}
+.card:hover{border-color:#a78bfa66;transform:translateY(-2px)}
+.span-8{grid-column:span 8}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-12{grid-column:span 12}
+h2{font-size:1.25rem;margin:0 0 5px}h3{font-size:1rem;margin:0 0 6px}.sub{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+label{display:block;color:#d5dcf2;font-size:.88rem;margin:14px 0 7px}
+.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.profile-box{background:#0e162b;border:1px solid #39476d;border-radius:15px;padding:12px}.profile-box label{margin-top:0}.profile-box select{margin-top:4px}
+.preset-tag{display:inline-block;border:1px solid #62529b;background:linear-gradient(110deg,#34265f,#233e56);color:#e5dcff;padding:5px 10px;border-radius:99px;font-size:.75rem;margin:3px 4px 3px 0}
+@media(max-width:520px){.profile-grid{grid-template-columns:1fr}}
+input[type=text],select{width:100%;padding:12px 13px;border-radius:12px;border:1px solid #3a466b;background:#0d1428;color:var(--text);outline:none}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #5eead422}
+.choices{display:flex;flex-wrap:wrap;gap:9px}
+.choice{border:1px solid #354263;background:#111a31;color:#c4cce2;border-radius:13px;padding:10px 13px;transition:.18s}
+.choice.active{border-color:var(--purple);background:linear-gradient(120deg,#49347c,#24475b);color:white;box-shadow:0 0 0 1px #a78bfa55 inset}
+.choice:hover{transform:translateY(-2px);border-color:var(--cyan)}
+.primary{background:linear-gradient(100deg,#8b5cf6,#ec4899);color:white;border:0;padding:12px 18px;border-radius:13px;font-weight:850;box-shadow:0 8px 22px #8b5cf644;transition:transform .18s,filter .18s}
+.secondary{background:linear-gradient(110deg,#253252,#263e52);border:1px solid #4b5a7c;color:var(--text);padding:10px 14px;border-radius:12px}
+.primary:hover,.secondary:hover{filter:brightness(1.13);transform:translateY(-2px)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+.stat{background:linear-gradient(145deg,#202c4b,#121a30);border:1px solid #39476b;padding:13px;border-radius:15px}
+.stat strong{font-size:1.6rem;display:block;background:linear-gradient(90deg,#c4b5fd,#5eead4);-webkit-background-clip:text;background-clip:text;color:transparent}.stat small{color:var(--muted)}
+.exercise{display:flex;gap:12px;align-items:flex-start;padding:14px 12px;border-bottom:1px solid #ffffff12;border-radius:12px}
+.exercise:nth-child(even){background:#ffffff05}.exercise:last-child{border:0}
+.num{width:34px;height:34px;flex:none;border-radius:11px;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;display:grid;place-items:center;font-weight:900;box-shadow:0 5px 14px #8b5cf633}
+.exercise p{margin:3px 0 0;color:var(--muted);font-size:.86rem}
+.meal{background:linear-gradient(135deg,#1b3150,#18223c);border:1px solid #3b5476;border-radius:16px;padding:16px;margin-top:10px;min-height:112px;transition:transform .2s}
+.meal:hover{transform:translateY(-3px)}.meal b{display:block;margin-bottom:5px;font-size:1rem}.meal span{color:#c2cce2;font-size:.88rem}
+.progress{height:10px;background:#0b1224;border-radius:99px;overflow:hidden;margin:12px 0}.progress div{height:100%;width:0;background:linear-gradient(90deg,#a78bfa,#5eead4,#fbbf24);transition:width .3s}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{border:1px solid #354263;border-radius:11px;padding:8px 2px;text-align:center;color:var(--muted);font-size:.78rem;background:#10182d}.day.done{background:linear-gradient(145deg,#155e55,#164e63);border-color:#2dd4bf;color:#baffef}.day.today{border-color:var(--purple);color:white}
+.notice{border-left:3px solid var(--cyan);padding:11px 14px;background:linear-gradient(100deg,#123b3c88,#162d4088);border-radius:0 12px 12px 0;color:#d2f7f1;font-size:.87rem;margin-top:14px}
+footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
+.hidden{display:none!important}
+@media(max-width:760px){.wrap{padding:14px}.hero{grid-template-columns:1fr;padding:22px}.hero-art{min-height:175px}.span-8,.span-4,.span-6{grid-column:span 12}.stats{grid-template-columns:repeat(3,1fr)}header{padding-bottom:14px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* FITZONE V4 */
+.account-panel{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.account-panel input{width:150px!important;padding:9px 11px!important}
+.account-status{font-size:.78rem;color:var(--cyan)}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.navlinks a{color:#e5e7ff;text-decoration:none;border:1px solid #ffffff20;background:#ffffff0b;padding:8px 12px;border-radius:999px;font-size:.82rem}
+.navlinks a:hover{border-color:var(--cyan)}
+.timerbox{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;background:linear-gradient(120deg,#282052,#17404b);border:1px solid #ffffff22;border-radius:17px;padding:16px;margin-top:14px}
+.timer-display{font-size:2rem;font-weight:950;letter-spacing:2px;font-variant-numeric:tabular-nums}
+.timer-controls{display:flex;gap:8px;flex-wrap:wrap}
+.timer-controls button,.small-btn{border:1px solid #ffffff28;background:#ffffff12;color:white;border-radius:10px;padding:8px 11px}
+.exercise-tip{font-size:.82rem;color:#c8d4ef;margin-top:5px}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.achievement{padding:13px;border-radius:14px;border:1px solid #39476b;background:#111a31}
+.achievement.locked{opacity:.48;filter:saturate(.35)}
+.achievement strong{display:block}
+.week-plan{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.week-cell{padding:10px 5px;border:1px solid #354263;border-radius:12px;text-align:center;background:#10182d;color:#dce5ff;font-size:.8rem}
+.week-cell b{display:block;font-size:.72rem;color:var(--cyan);margin-bottom:4px}
+.account-note{font-size:.78rem;color:var(--muted);margin:5px 0 0;max-width:340px}
+@media(max-width:760px){header{align-items:flex-start;flex-direction:column}.account-panel input{width:100%!important}.week-plan{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+
+/* Progression & trophées V5 */
+.level-panel{background:linear-gradient(110deg,#292052,#163d4a);border:1px solid #ffffff26;border-radius:16px;padding:14px;margin:12px 0 16px}
+.level-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.level-top strong{font-size:1rem;color:#fff}
+.level-top span{font-weight:900;color:#71f1d0}
+.level-track{height:11px;border-radius:99px;background:#ffffff20;overflow:hidden}
+.level-track div{height:100%;width:0;background:linear-gradient(90deg,#b78cff,#60f0d0);border-radius:99px;transition:width .35s}
+#xpNext{display:block;color:#cbd5ed;margin-top:7px}
+.badge-grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+.achievement{position:relative;overflow:hidden;min-height:105px;transition:transform .18s,border-color .18s}
+.achievement.unlocked{border-color:#a78bfa;background:linear-gradient(145deg,#28204c,#142d3a);box-shadow:0 0 18px #9b87ff20}
+.achievement.unlocked:after{content:"";position:absolute;right:-20px;top:-22px;width:58px;height:58px;border-radius:50%;background:#7bf1d033}
+.achievement .trophy-icon{font-size:1.55rem;display:block;margin-bottom:5px}
+.achievement small{display:block;color:#b8c4df;margin-top:4px;line-height:1.35}
+.achievement .badge-progress{font-size:.72rem;color:#7cebd0;margin-top:7px}
+.achievement.locked{opacity:.72;filter:saturate(.45)}
+#badgeMessage{margin-top:12px;color:#8debd6}
+
+
+/* Défis et classement V7 */
+.challenge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.challenge-card{background:linear-gradient(145deg,#202b4b,#121a30);border:1px solid #3b496e;border-radius:15px;padding:13px}
+.challenge-card.done{border-color:#35c7a9;background:linear-gradient(145deg,#17453f,#152b3c)}
+.challenge-card strong{display:block;margin:5px 0}.challenge-card small{color:var(--muted)}
+.challenge-meta{display:flex;justify-content:space-between;gap:8px;font-size:.76rem;color:#b9c7e4;margin-top:8px}
+.challenge-progress{height:8px;background:#ffffff18;border-radius:99px;overflow:hidden;margin-top:9px}.challenge-progress div{height:100%;background:linear-gradient(90deg,#a78bfa,#5eead4);border-radius:99px}
+.rank-tabs{display:flex;gap:8px;margin:12px 0}.rank-tabs .choice{flex:1}
+.leaderboard-list{display:grid;gap:8px}.rank-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;background:#111a31;border:1px solid #354263;border-radius:13px;padding:10px 12px}
+.rank-row.me{border-color:#a78bfa;background:#29204a}.rank-number{font-weight:950;color:#fbbf24;text-align:center}.rank-name{font-weight:800}.rank-detail{display:block;color:var(--muted);font-size:.75rem}.rank-score{font-weight:900;color:#7cebd0;text-align:right}.empty-state{padding:18px;border:1px dashed #526080;border-radius:13px;color:var(--muted);font-size:.88rem;text-align:center}
+@media(max-width:760px){.challenge-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.challenge-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="brand">FIT<span>ZONE</span></div>
+ <div>
+  <div class="account-panel" id="accountPanel">
+   <button class="secondary" id="openAuth">Connexion / Inscription</button>
+   <button class="secondary hidden" id="logoutAccount">Déconnexion</button>
+  </div>
+  <div class="account-status" id="accountStatus">👤 Mode invité</div>
+  <p class="account-note" id="accountNote">Configure Supabase pour activer les comptes en ligne et la synchronisation.</p>
+ </div>
+</header>
+<nav class="navlinks" aria-label="Navigation principale">
+ <a href="#setup">🎯 Programme</a><a href="#workoutCard">🏃 Séance</a><a href="#tracking">📊 Suivi</a><a href="#challenges">🎯 Défis</a><a href="#leaderboard">🥇 Classement</a><a href="#achievements">🏆 Badges</a>
+</nav>
+<section class="hero">
+ <div><div class="eyebrow">⚡ Bouger à ton rythme</div><h1>Construis tes habitudes.<br><span class="gradient">Progresse chaque jour.</span></h1><p>Choisis les zones que tu souhaites renforcer, organise tes séances et retrouve des idées de repas équilibrés.</p><button class="primary" onclick="document.querySelector('#setup').scrollIntoView({behavior:'smooth'})">Créer mon programme ↓</button></div>
+ <div class="hero-art" aria-label="Illustration sportive">🏋️‍♀️</div>
+</section>
+<div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:16px">
+ <div class="card" style="padding:13px 16px;background:linear-gradient(110deg,#33245d,#1c2946)">🔥 <b>Motivation</b><div class="sub" style="margin:2px 0 0">Chaque petit pas compte</div></div>
+ <div class="card" style="padding:13px 16px;background:linear-gradient(110deg,#174b4b,#1c2946)">🌿 <b>Bien-être</b><div class="sub" style="margin:2px 0 0">À ton rythme, sans pression</div></div>
+ <div class="card" style="padding:13px 16px;background:linear-gradient(110deg,#56304a,#1c2946)">⭐ <b>Régularité</b><div class="sub" style="margin:2px 0 0">Célèbre tes progrès</div></div>
+</div>
+<div class="grid">
+<section class="card span-8" id="setup">
+ <h2>🎯 1. Ton programme</h2><p class="sub">Choisis tes préférences. Tu pourras les modifier plus tard.</p>
+ <label>👋 Ton prénom ou pseudo</label><input id="username" type="text" maxlength="24" placeholder="Ex. Alex">
+ <div class="profile-grid">
+  <div class="profile-box"><label for="ageRange">Ta tranche d’âge</label><select id="ageRange"><option value="13-15">13 à 15 ans</option><option value="16-17">16 à 17 ans</option><option value="18+">18 ans et plus</option></select></div>
+  <div class="profile-box"><label for="gymAccess">Accès à une salle ?</label><select id="gymAccess"><option value="no">Non, entraînement à la maison</option><option value="yes">Oui, j’ai accès à une salle</option><option value="sometimes">De temps en temps</option></select></div>
+ </div>
+ <label>🎒 Quel matériel as-tu à disposition ?</label>
+ <div class="choices" id="equipment"><button class="choice active" data-equipment="none">🙌 Aucun matériel</button><button class="choice" data-equipment="mat">🧘 Tapis</button><button class="choice" data-equipment="bands">🟣 Élastiques</button><button class="choice" data-equipment="dumbbells">🏋️ Petits haltères</button><button class="choice" data-equipment="gym">🏟️ Matériel de salle</button></div>
+ <label>💪 Quelles zones souhaites-tu renforcer ?</label>
+ <div class="choices" id="zones">
+  <button class="choice active" data-zone="Abdominaux">🔥 Abdominaux</button><button class="choice" data-zone="Bras">💪 Bras</button><button class="choice" data-zone="Jambes">🦵 Jambes</button><button class="choice" data-zone="Dos">🧍 Dos</button><button class="choice" data-zone="Fessiers">🍑 Fessiers</button><button class="choice" data-zone="Pectoraux">❤️ Pectoraux</button><button class="choice" data-zone="Corps entier">⚡ Corps entier</button>
+ </div>
+ <label>📅 Combien de jours par semaine ?</label><div class="choices" id="frequency">
+  <button class="choice" data-days="2">2 jours</button><button class="choice active" data-days="3">3 jours</button><button class="choice" data-days="4">4 jours</button><button class="choice" data-days="5">5 jours</button>
+ </div>
+ <label>Ton niveau</label><div class="choices" id="level"><button class="choice active" data-level="Débutant">Débutant</button><button class="choice" data-level="Intermédiaire">Intermédiaire</button></div>
+ <div style="margin-top:18px"><button class="primary" id="savePlan">Générer mon programme</button></div>
+ <div class="notice">FITZONE choisit des séances adaptées à ton âge, ton matériel et tes disponibilités. Les exercices doivent rester confortables : arrête si tu ressens une douleur. Pour les mineurs, l’entraînement en salle se fait avec l’encadrement d’un adulte qualifié.</div>
+</section>
+<aside class="card span-4" id="tracking">
+ <h2>📈 Ton suivi</h2><p class="sub">Tes séances validées sur cet appareil.</p>
+ <div class="stats"><div class="stat"><strong id="count">0</strong><small>Séances</small></div><div class="stat"><strong id="streak">0</strong><small>Jours actifs</small></div><div class="stat"><strong id="week">0</strong><small>Cette semaine</small></div></div>
+ <label>Objectif hebdomadaire</label><div class="progress"><div id="bar"></div></div><small id="progressText" style="color:var(--muted)">0 séance sur 3</small>
+ <div style="margin-top:18px"><button class="secondary" id="reset">Réinitialiser le suivi</button></div>
+</aside>
+<section class="card span-8" id="workoutCard">
+ <h2>🏆 2. Ta séance recommandée</h2><p class="sub" id="planDescription">Génère ton programme pour découvrir une séance préparée selon ton profil.</p><div id="presetSummary"></div>
+ <div id="workout"><div class="exercise"><div class="num">1</div><div><b>Échauffement doux</b><p>Commence par quelques minutes de mouvements faciles.</p></div></div></div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px"><button class="primary" id="validate">✓ Valider ma séance</button><button class="secondary" id="nextWorkout">Voir une autre séance</button></div>
+ <div class="timerbox">
+ <div><div class="eyebrow">⏱️ Chronomètre de séance</div><div class="timer-display" id="timerDisplay">00:00</div><div class="sub" style="margin:0" id="timerStatus">Prêt quand tu l’es !</div></div>
+ <div class="timer-controls"><button class="primary" id="timerStart">▶ Démarrer</button><button id="timerPause">Ⅱ Pause</button><button id="timerReset">↺ Réinitialiser</button></div>
+</div>
+<p class="exercise-tip">Le chronomètre est facultatif : prends le temps de récupérer et arrête si un mouvement devient inconfortable.</p>
+<p id="validationMsg" class="sub" style="margin:12px 0 0"></p>
+</section>
+<section class="card span-4">
+ <h2>🗓️ 3. Ton calendrier</h2><p class="sub">Les jours où tu as validé une séance.</p><div class="days" id="calendar"></div>
+ <div class="notice">Les jours de repos font partie du programme. Tu peux simplement marcher, t'étirer doucement ou te reposer.</div>
+</section>
+<section class="card span-6" id="weeklyPlan">
+ <h2>🗓️ Ton organisation de la semaine</h2>
+ <p class="sub">Une proposition souple avec des jours de récupération. Tu peux la modifier selon ton emploi du temps.</p>
+ <div class="week-plan" id="weekPlanGrid"></div>
+ <div class="notice">Les jours sans séance sont importants : repos, sommeil et récupération font aussi partie d’une bonne routine.</div>
+</section>
+<section class="card span-6" id="challenges">
+ <h2>🎯 Défis FITZONE</h2><p class="sub">Des objectifs souples à ton rythme. Les jours de repos restent importants !</p>
+ <div class="challenge-grid" id="challengeGrid"></div>
+ <p class="sub" id="challengeMessage" aria-live="polite">Chaque défi terminé te rapporte un bonus d’XP.</p>
+</section>
+<section class="card span-6" id="leaderboard">
+ <h2>🥇 Classement FITZONE</h2><p class="sub">Un classement amical basé sur les séances validées, jamais sur le poids ou l’apparence.</p>
+ <div class="rank-tabs"><button class="choice active" id="rankWeekly">Cette semaine</button><button class="choice" id="rankAllTime">Général</button></div>
+ <div id="leaderboardContent" class="leaderboard-list"><div class="empty-state">Connecte-toi à ton compte pour participer au classement.</div></div>
+ <div class="notice" id="leaderboardNote">Le classement entre membres nécessite la configuration Supabase et la migration SQL V7.</div>
+ <button class="secondary" id="refreshLeaderboard" style="margin-top:10px">↻ Actualiser le classement</button>
+</section>
+<section class="card span-6" id="achievements">
+ <h2>🏆 Tes récompenses</h2><p class="sub">Chaque séance compte. Débloque des trophées, gagne de l’XP et monte de niveau à ton rythme.</p>
+ <div class="level-panel">
+  <div class="level-top"><strong id="levelName">🌱 Niveau 1 · Départ</strong><span id="xpTotal">0 XP</span></div>
+  <div class="level-track"><div id="xpBar"></div></div>
+  <small id="xpNext">50 XP pour le prochain niveau</small>
+ </div>
+ <div class="badge-grid" id="badgeGrid"></div>
+ <p class="sub" id="badgeMessage" aria-live="polite">Tes prochains trophées t’attendent !</p>
+</section>
+<section class="card span-12">
+ <h2>🥑 4. Idées de repas équilibrés</h2><p class="sub">Des idées simples et variées pour accompagner tes journées, sans régime strict ni restriction.</p>
+ <div class="grid">
+  <div class="span-4"><div class="meal"><b>🌅 Petit-déjeuner</b><span>Flocons d'avoine ou pain complet, yaourt, fruit et boisson.</span></div></div>
+  <div class="span-4"><div class="meal"><b>☀️ Déjeuner</b><span>Riz, pâtes ou pommes de terre, légumes, œufs / poisson / légumineuses.</span></div></div>
+  <div class="span-4"><div class="meal"><b>🌙 Dîner</b><span>Un repas complet selon ton appétit : légumes, féculents et source de protéines.</span></div></div>
+ </div>
+ <div class="notice">Les besoins varient selon les personnes et les journées. Mange suffisamment, varie les aliments et demande conseil à un professionnel de santé si tu souhaites un accompagnement nutritionnel personnalisé.</div>
+</section>
+</div>
+<footer>FITZONE ⚡ · Une séance à la fois. Tes données sont conservées sur cet appareil en mode invité et synchronisées en ligne lorsque tu es connecté.</footer>
+</div>
+
+<div class="auth-overlay hidden" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+ <div class="auth-modal card">
+  <button class="auth-close" id="closeAuth" aria-label="Fermer">×</button>
+  <div class="eyebrow">🔐 COMPTE FITZONE</div>
+  <h2 id="authTitle">Bienvenue sur FITZONE</h2>
+  <p class="sub">Crée ton compte ou retrouve ta progression sur un autre appareil.</p>
+  <div class="auth-tabs"><button class="choice active" id="tabLogin">Se connecter</button><button class="choice" id="tabSignup">Créer un compte</button></div>
+  <div id="signupFields" class="hidden">
+   <label for="authPseudo">Pseudo</label><input id="authPseudo" type="text" maxlength="20" autocomplete="nickname" placeholder="Ex. AlexFit">
+   <label for="authEmail">Adresse e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="toi@exemple.fr">
+  </div>
+  <div id="loginFields">
+   <label for="authIdentity">Adresse e-mail ou pseudo</label><input id="authIdentity" type="text" autocomplete="username" placeholder="E-mail ou pseudo">
+  </div>
+  <label for="authPassword">Mot de passe</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="8 caractères minimum">
+  <button class="primary auth-submit" id="authSubmit">Se connecter</button>
+  <button class="text-button" id="forgotPassword">Mot de passe oublié ?</button>
+  <p class="auth-message" id="authMessage" aria-live="polite"></p>
+  <p class="auth-legal">Ton mot de passe est géré par Supabase et n'est jamais enregistré dans FITZONE.</p>
+ </div>
+</div>
+<style>
+.auth-overlay{position:fixed;inset:0;z-index:50;background:#050816dd;backdrop-filter:blur(8px);display:grid;place-items:center;padding:16px}
+.auth-modal{width:min(100%,460px);position:relative;padding:26px!important;max-height:92vh;overflow:auto}
+.auth-close{position:absolute;right:16px;top:12px;background:none;border:0;color:white;font-size:1.8rem}
+.auth-modal input{width:100%;padding:12px 13px;border-radius:12px;border:1px solid #3a466b;background:#0d1428;color:white}
+.auth-tabs{display:flex;gap:8px;margin:16px 0}
+.auth-tabs .choice{flex:1}
+.auth-submit{width:100%;margin-top:18px}
+.text-button{display:block;margin:12px auto 0;background:none;border:0;color:#a5b4fc;text-decoration:underline}
+.auth-message{min-height:22px;color:var(--cyan);font-size:.88rem}
+.auth-legal{font-size:.74rem;color:var(--muted)}
+#accountPanel button{white-space:nowrap}
+@media(max-width:760px){.auth-modal{padding:20px!important}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const $=s=>document.querySelector(s);
+let selectedZones=['Abdominaux'],days=3,level='Débutant',sessionIndex=0,equipment=['none'];
+let state=JSON.parse(localStorage.getItem('fitzone-state')||'{"sessions":[],"plan":null}');
+const routines={
+ 'Abdominaux':[['Gainage sur les genoux','2 × 15 à 20 secondes','Garde le dos dans une position confortable.'],['Dead bug','2 × 8 répétitions par côté','Bouge lentement en gardant le ventre engagé.'],['Bird-dog','2 × 8 répétitions par côté','Tends bras et jambe opposés sans cambrer.']],
+ 'Bras':[['Pompes contre un mur','2 × 8 répétitions','Garde le corps aligné et avance doucement.'],['Cercles de bras','2 × 20 secondes','Fais de petits cercles contrôlés.'],['Poussées des mains','2 × 10 répétitions','Pousse les paumes l’une contre l’autre quelques secondes.']],
+ 'Jambes':[['Squats vers une chaise','2 × 8 répétitions','Descends doucement vers une chaise puis remonte.'],['Montées sur pointes','2 × 12 répétitions','Tiens-toi à un support stable si besoin.'],['Pas latéraux','2 × 8 de chaque côté','Garde les genoux souples et le mouvement contrôlé.']],
+ 'Dos':[['Bird-dog','2 × 8 répétitions par côté','Garde le bassin stable.'],['Rétraction des omoplates','2 × 10 répétitions','Ramène doucement les épaules vers l’arrière.'],['Étirement du chat-vache','6 mouvements lents','Mobilise le dos sans forcer.']],
+ 'Fessiers':[['Pont fessier','2 × 10 répétitions','Monte le bassin sans creuser le dos.'],['Pas latéraux','2 × 8 de chaque côté','Fais de petits pas contrôlés.'],['Extension de jambe debout','2 × 8 par côté','Tiens-toi à un support et garde le buste droit.']],
+ 'Pectoraux':[['Pompes contre un mur','2 × 8 répétitions','Ajuste la distance au mur pour rester à l’aise.'],['Pression des paumes','2 × 10 secondes','Presse les mains l’une contre l’autre.'],['Cercles de bras','2 × 20 secondes','Effectue des mouvements souples.']],
+ 'Corps entier':[['Marche active sur place','2 × 45 secondes','Bouge à un rythme où tu peux encore parler.'],['Squats vers une chaise','2 × 8 répétitions','Descends sans douleur et remonte tranquillement.'],['Bird-dog','2 × 8 par côté','Bouge lentement et garde l’équilibre.']]
+};
+function getPreset(zone,plan){
+ const age=plan.age||'13-15', gym=plan.gym||'no', gear=plan.equipment||['none'];
+ const young=age!=='18+';
+ const library={
+  'Abdominaux':[['Dead bug','2 séries de 6 à 8 par côté','Contrôle le mouvement, sans forcer.'],['Bird-dog','2 séries de 6 à 8 par côté','Garde le dos stable.'],['Gainage facile','2 × 10 à 20 secondes','Pose les genoux au sol si besoin.']],
+  'Bras':[['Pompes au mur','2 séries de 6 à 10','Éloigne ou rapproche les pieds pour ajuster la difficulté.'],['Cercles de bras','2 × 20 secondes','Garde les épaules détendues.'],['Pression des paumes','2 × 10 secondes','Presse les mains l’une contre l’autre.']],
+  'Jambes':[['Assis-debout sur une chaise','2 séries de 8','Fais le mouvement lentement.'],['Montées sur pointes','2 séries de 10','Tiens un support stable si nécessaire.'],['Pas latéraux','2 séries de 6 par côté','Petits pas, genoux souples.']],
+  'Dos':[['Bird-dog','2 séries de 6 par côté','Bouge lentement et garde l’équilibre.'],['Rétraction des omoplates','2 séries de 8','Ramène doucement les épaules en arrière.'],['Chat-vache','6 mouvements lents','Mobilise le dos sans chercher l’amplitude maximale.']],
+  'Fessiers':[['Pont fessier','2 séries de 8 à 10','Monte le bassin sans cambrer.'],['Pas latéraux','2 séries de 6 par côté','Garde les genoux souples.'],['Extension de jambe debout','2 séries de 8 par côté','Tiens-toi à un support.']],
+  'Pectoraux':[['Pompes au mur','2 séries de 6 à 10','Mouvement contrôlé et confortable.'],['Pression des paumes','2 × 10 secondes','Presse doucement les mains ensemble.'],['Cercles de bras','2 × 20 secondes','Garde les épaules relâchées.']],
+  'Corps entier':[['Marche active sur place','2 × 45 secondes','Choisis une allure où tu peux parler.'],['Assis-debout sur une chaise','2 séries de 8','Prends ton temps.'],['Bird-dog','2 séries de 6 par côté','Garde le bassin stable.']]
+ };
+ let list=(library[zone]||library['Corps entier']).map(x=>[...x]);
+ if(gear.includes('bands') && !young) list[1]=['Tirage avec élastique','2 séries de 8','Fixe l’élastique de façon sûre et tire sans à-coups.'];
+ if(gear.includes('dumbbells') && !young) list[0]=['Développé léger assis','2 séries de 8','Utilise une charge très légère et un mouvement maîtrisé.'];
+ if(gym==='yes' && !young && gear.includes('gym')) list[1]=['Vélo ou rameur facile','5 minutes','Reste à une intensité modérée et demande une démonstration au personnel.'];
+ // Pour les 13-17 ans : séances au poids du corps, sans charges lourdes ni tests de force.
+ return list;
+}
+function save(){localStorage.setItem('fitzone-state',JSON.stringify(state));renderStats()}
+function renderStats(){
+ const sessions=state.sessions||[];$('#count').textContent=sessions.length;
+ const unique=[...new Set(sessions.map(x=>x.date))].sort();$('#streak').textContent=unique.length;
+ const now=new Date(),monday=new Date(now);monday.setHours(0,0,0,0);monday.setDate(now.getDate()-((now.getDay()+6)%7));
+ const week=sessions.filter(x=>new Date(x.date+'T12:00:00')>=monday).length;$('#week').textContent=week;
+ const target=state.plan?.days||3;$('#bar').style.width=Math.min(100,week/target*100)+'%';$('#progressText').textContent=week+' séance(s) sur '+target+' cette semaine';
+ renderCalendar();
+ if(typeof renderWeekPlan==='function')renderWeekPlan();
+ if(typeof renderBadges==='function')renderBadges();
+}
+function renderCalendar(){
+ const box=$('#calendar');box.innerHTML='';const today=new Date();const start=new Date(today);start.setDate(today.getDate()-((today.getDay()+6)%7));
+ const labels=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];const done=new Set((state.sessions||[]).map(x=>x.date));
+ labels.forEach((d,i)=>{let dt=new Date(start);dt.setDate(start.getDate()+i);let key=dt.toISOString().slice(0,10);let el=document.createElement('div');el.className='day'+(done.has(key)?' done':'')+(key===today.toISOString().slice(0,10)?' today':'');el.innerHTML=d+'<br><b>'+dt.getDate()+'</b>'+(done.has(key)?'<br>✓':'');box.appendChild(el)});
+}
+function renderWorkout(){
+ const plan=state.plan;if(!plan){$('#planDescription').textContent='Génère ton programme pour découvrir une séance préparée selon ton profil.';return}
+ const zone=plan.zones[sessionIndex%plan.zones.length];
+ const ageLabel=plan.age==='18+'?'18 ans et +':plan.age+' ans';
+ const gearLabel=(plan.equipment||['none']).map(x=>({none:'sans matériel',mat:'tapis',bands:'élastiques',dumbbells:'petits haltères',gym:'matériel de salle'}[x])).join(', ');
+ $('#planDescription').textContent='Séance '+(sessionIndex+1)+' · '+zone+' · '+plan.level;
+ $('#presetSummary').innerHTML=`<span class="preset-tag">${ageLabel}</span><span class="preset-tag">${plan.days} jours / semaine</span><span class="preset-tag">${plan.gym==='yes'?'Salle de sport':plan.gym==='sometimes'?'Salle occasionnelle':'À la maison'}</span><span class="preset-tag">${gearLabel}</span>`;
+ const items=getPreset(zone,plan);const box=$('#workout');box.innerHTML='';
+ const all=[['Échauffement','3 à 5 minutes','Marche sur place et mobilise doucement les articulations.'],...items,['Retour au calme','2 à 3 minutes','Respire tranquillement et relâche les muscles.']];
+ all.forEach((it,i)=>{let el=document.createElement('div');el.className='exercise';el.innerHTML=`<div class="num">${i+1}</div><div><b>${it[0]}</b><p>${it[1]} · ${it[2]}</p></div>`;box.appendChild(el)});
+ $('#validationMsg').textContent='';
+}
+$('#zones').addEventListener('click',e=>{let b=e.target.closest('[data-zone]');if(!b)return;let z=b.dataset.zone;if(selectedZones.includes(z)){if(selectedZones.length>1)selectedZones=selectedZones.filter(x=>x!==z)}else selectedZones.push(z);document.querySelectorAll('[data-zone]').forEach(x=>x.classList.toggle('active',selectedZones.includes(x.dataset.zone)))});
+$('#frequency').addEventListener('click',e=>{let b=e.target.closest('[data-days]');if(!b)return;days=+b.dataset.days;document.querySelectorAll('[data-days]').forEach(x=>x.classList.toggle('active',x===b))});
+$('#level').addEventListener('click',e=>{let b=e.target.closest('[data-level]');if(!b)return;level=b.dataset.level;document.querySelectorAll('[data-level]').forEach(x=>x.classList.toggle('active',x===b))});
+$('#equipment').addEventListener('click',e=>{let b=e.target.closest('[data-equipment]');if(!b)return;let v=b.dataset.equipment;if(v==='none'){equipment=['none']}else{equipment=equipment.filter(x=>x!=='none');equipment=equipment.includes(v)?equipment.filter(x=>x!==v):[...equipment,v];if(!equipment.length)equipment=['none']}document.querySelectorAll('[data-equipment]').forEach(x=>x.classList.toggle('active',equipment.includes(x.dataset.equipment)))});
+$('#savePlan').onclick=()=>{state.plan={zones:selectedZones,days,level,name:$('#username').value.trim(),age:$('#ageRange').value,gym:$('#gymAccess').value,equipment};sessionIndex=0;save();renderWorkout();$('#planDescription').scrollIntoView({behavior:'smooth',block:'center'})};
+$('#nextWorkout').onclick=()=>{if(!state.plan){$('#validationMsg').textContent='Commence par générer ton programme.';return}sessionIndex++;renderWorkout()};
+$('#validate').onclick=()=>{if(!state.plan){$('#validationMsg').textContent='Commence par générer ton programme.';return}const date=new Date().toISOString().slice(0,10);if(state.sessions.some(x=>x.date===date)){ $('#validationMsg').textContent='Ta séance du jour est déjà validée. Bravo pour ta régularité !';return}state.sessions.push({date,zone:state.plan.zones[sessionIndex%state.plan.zones.length]});save();$('#validationMsg').textContent='Séance validée ! Bravo pour tes efforts. Pense aussi à récupérer.'};
+$('#reset').onclick=()=>{if(confirm('Effacer tout le suivi enregistré sur cet appareil ?')){state.sessions=[];save();$('#validationMsg').textContent='Ton suivi a été réinitialisé.'}};
+if(state.plan){selectedZones=state.plan.zones;days=state.plan.days;level=state.plan.level;equipment=state.plan.equipment||['none'];$('#username').value=state.plan.name||'';$('#ageRange').value=state.plan.age||'13-15';$('#gymAccess').value=state.plan.gym||'no';document.querySelectorAll('[data-equipment]').forEach(x=>x.classList.toggle('active',equipment.includes(x.dataset.equipment)));document.querySelectorAll('[data-zone]').forEach(x=>x.classList.toggle('active',selectedZones.includes(x.dataset.zone)));document.querySelectorAll('[data-days]').forEach(x=>x.classList.toggle('active',+x.dataset.days===days));document.querySelectorAll('[data-level]').forEach(x=>x.classList.toggle('active',x.dataset.level===level));renderWorkout()}
+renderStats();
+
+// ===== FITZONE V6 : comptes en ligne Supabase =====
+// Remplace ces deux valeurs par celles de ton projet Supabase.
+// La clé anon/publishable peut être présente dans le navigateur si les règles RLS SQL sont activées.
+// Ne mets JAMAIS la clé service_role ici.
+const SUPABASE_URL = "https://rzpujlmvsdcsuagvvvub.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_0b_P7RZdZxiqge2D4QhA2Q_Hc0zRKpI";
+const supabaseReady = !!(window.supabase && SUPABASE_URL.startsWith("https://") && SUPABASE_ANON_KEY.length > 20 && !SUPABASE_URL.includes("COLLE_ICI") && !SUPABASE_ANON_KEY.includes("COLLE_ICI"));
+const supabaseClient = supabaseReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+let currentUser = null;
+let currentUsername = "";
+let authMode = "login";
+let cloudSaveTimer = null;
+
+function showAuthMessage(message, isError=false){
+ const el=$("#authMessage"); if(el){el.textContent=message;el.style.color=isError?"#fda4af":"var(--cyan)";}
+}
+function openAuth(mode="login"){
+ authMode=mode; $("#authOverlay").classList.remove("hidden"); setAuthMode(mode); showAuthMessage("");
+}
+function closeAuth(){ $("#authOverlay").classList.add("hidden"); }
+function setAuthMode(mode){
+ authMode=mode;
+ $("#tabLogin").classList.toggle("active",mode==="login");
+ $("#tabSignup").classList.toggle("active",mode==="signup");
+ $("#signupFields").classList.toggle("hidden",mode!=="signup");
+ $("#loginFields").classList.toggle("hidden",mode!=="login");
+ $("#authTitle").textContent=mode==="signup"?"Créer ton compte":"Content de te revoir !";
+ $("#authSubmit").textContent=mode==="signup"?"Créer mon compte":"Se connecter";
+ $("#forgotPassword").classList.toggle("hidden",mode==="signup");
+ $("#authPassword").autocomplete=mode==="signup"?"new-password":"current-password";
+ showAuthMessage("");
+}
+function setAuthUI(){
+ const connected=!!currentUser;
+ $("#accountStatus").textContent=connected?"👤 Connecté : "+(currentUsername||currentUser.email||"membre FITZONE"):"👤 Mode invité";
+ $("#accountNote").textContent=connected?"Progression synchronisée avec ton compte en ligne.":"Tes données invitées restent sur cet appareil. Connecte-toi pour synchroniser ta progression.";
+ $("#openAuth").classList.toggle("hidden",connected);
+ $("#logoutAccount").classList.toggle("hidden",!connected);
+}
+function applyState(nextState){
+ state=nextState && typeof nextState==="object" ? nextState : {sessions:[],plan:null};
+ state.sessions=Array.isArray(state.sessions)?state.sessions:[];
+ localStorage.setItem("fitzone-state",JSON.stringify(state));
+ restorePlanUI(); renderChallenges(); renderStats(); renderWorkout(); renderWeekPlan(); renderBadges();
+}
+async function loadCloudProgress(user){
+ const {data,error}=await supabaseClient.from("fitzone_progress").select("progress").eq("user_id",user.id).maybeSingle();
+ if(error){console.error(error);showAuthMessage("Connecté, mais impossible de charger la progression. Vérifie le SQL Supabase.",true);return;}
+ if(data?.progress) {
+  const cloud=data.progress;
+  const local=JSON.parse(localStorage.getItem("fitzone-state")||'{"sessions":[],"plan":null}');
+  const cloudIsEmpty=!(cloud.sessions||[]).length&&!cloud.plan;
+  const localHasProgress=(local.sessions||[]).length>0||!!local.plan;
+  if(cloudIsEmpty&&localHasProgress){state=local;await saveCloudProgress();}
+  else applyState(cloud);
+  renderChallenges();renderBadges();await syncLeaderboard();
+ } else {
+  const local=JSON.parse(localStorage.getItem("fitzone-state")||'{"sessions":[],"plan":null}');
+  state=local;
+  await saveCloudProgress();renderChallenges();renderBadges();await syncLeaderboard();
+ }
+}
+async function saveCloudProgress(){
+ if(!supabaseClient||!currentUser)return;
+ const payload={user_id:currentUser.id,progress:state,updated_at:new Date().toISOString()};
+ const {error}=await supabaseClient.from("fitzone_progress").upsert(payload,{onConflict:"user_id"});
+ if(error)console.error("Erreur de synchronisation FITZONE:",error.message);
+ else await syncLeaderboard();
+}
+function scheduleCloudSave(){
+ if(!currentUser)return;
+ clearTimeout(cloudSaveTimer);
+ cloudSaveTimer=setTimeout(saveCloudProgress,450);
+}
+async function handleSignup(){
+ if(!supabaseReady){showAuthMessage("La connexion en ligne n'est pas encore configurée. Suis le guide SETUP_SUPABASE.txt.",true);return;}
+ const username=$("#authPseudo").value.trim();
+ const email=$("#authEmail").value.trim().toLowerCase();
+ const password=$("#authPassword").value;
+ if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){showAuthMessage("Le pseudo doit contenir 3 à 20 caractères : lettres, chiffres ou _.",true);return;}
+ if(!email||!email.includes("@")){showAuthMessage("Entre une adresse e-mail valide.",true);return;}
+ if(password.length<8){showAuthMessage("Choisis un mot de passe d'au moins 8 caractères.",true);return;}
+ $("#authSubmit").disabled=true;
+ const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{username}}});
+ $("#authSubmit").disabled=false;
+ if(error){showAuthMessage(error.message,true);return;}
+ if(data.session){
+  currentUser=data.user; currentUsername=username; setAuthUI(); closeAuth(); await loadCloudProgress(currentUser); await syncLeaderboard();
+  showAuthMessage("");
+ }else{
+  showAuthMessage("Compte créé ! Vérifie ta boîte mail pour confirmer ton adresse, puis connecte-toi.");
+ }
+}
+async function handleLogin(){
+ if(!supabaseReady){showAuthMessage("La connexion en ligne n'est pas encore configurée. Suis le guide SETUP_SUPABASE.txt.",true);return;}
+ const identity=$("#authIdentity").value.trim();
+ const password=$("#authPassword").value;
+ if(!identity||!password){showAuthMessage("Renseigne ton e-mail ou ton pseudo et ton mot de passe.",true);return;}
+ $("#authSubmit").disabled=true;
+ let result;
+ if(identity.includes("@")){
+  result=await supabaseClient.auth.signInWithPassword({email:identity.toLowerCase(),password});
+ }else{
+  // La fonction Edge cherche le pseudo côté serveur puis authentifie avec l'e-mail associé.
+  const {data,error}=await supabaseClient.functions.invoke("username-login",{body:{username:identity,password}});
+  if(error){$("#authSubmit").disabled=false;showAuthMessage("Connexion par pseudo indisponible. Vérifie que la fonction username-login est déployée.",true);return;}
+  if(data?.session){
+   const {data:sessionData,error:setError}=await supabaseClient.auth.setSession(data.session);
+   result={data:sessionData,error:setError};
+  }else result={data:null,error:{message:data?.error||"Pseudo ou mot de passe incorrect."}};
+ }
+ $("#authSubmit").disabled=false;
+ if(result.error){showAuthMessage("Connexion impossible : "+result.error.message,true);return;}
+ currentUser=result.data.user;
+ const meta=currentUser.user_metadata||{};
+ currentUsername=meta.username||identity;
+ setAuthUI();closeAuth();await loadCloudProgress(currentUser);await syncLeaderboard();
+}
+async function handleForgotPassword(){
+ if(!supabaseReady){showAuthMessage("Configure d'abord Supabase.",true);return;}
+ const email=$("#authIdentity").value.trim();
+ if(!email.includes("@")){showAuthMessage("Pour réinitialiser le mot de passe, saisis ton adresse e-mail.",true);return;}
+ const {error}=await supabaseClient.auth.resetPasswordForEmail(email);
+ showAuthMessage(error?error.message:"Un lien de réinitialisation vient d'être envoyé si cette adresse possède un compte.",!!error);
+}
+async function handleLogout(){
+ if(supabaseClient)await supabaseClient.auth.signOut();
+ currentUser=null;currentUsername="";
+ state={sessions:[],plan:null};localStorage.setItem("fitzone-state",JSON.stringify(state));
+ setAuthUI();renderChallenges();renderStats();renderWorkout();renderWeekPlan();renderBadges();renderLeaderboardMessage();
+}
+$("#openAuth").onclick=()=>openAuth("login");
+$("#closeAuth").onclick=closeAuth;
+$("#tabLogin").onclick=()=>setAuthMode("login");
+$("#tabSignup").onclick=()=>setAuthMode("signup");
+$("#authSubmit").onclick=()=>authMode==="signup"?handleSignup():handleLogin();
+$("#forgotPassword").onclick=handleForgotPassword;
+$("#logoutAccount").onclick=handleLogout;
+$("#authPassword").addEventListener("keydown",e=>{if(e.key==="Enter")$("#authSubmit").click()});
+$("#authIdentity").addEventListener("keydown",e=>{if(e.key==="Enter")$("#authSubmit").click()});
+if(supabaseReady){
+ supabaseClient.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_IN"&&session?.user){
+   currentUser=session.user;currentUsername=session.user.user_metadata?.username||session.user.email||"membre";
+   setAuthUI();
+   // Éviter les appels Supabase imbriqués dans le callback d'auth.
+   setTimeout(()=>loadCloudProgress(session.user),0);
+  }else if(event==="SIGNED_OUT"){currentUser=null;currentUsername="";setAuthUI();}
+ });
+ supabaseClient.auth.getSession().then(({data})=>{
+  if(data.session){currentUser=data.session.user;currentUsername=currentUser.user_metadata?.username||currentUser.email||"membre";setAuthUI();loadCloudProgress(currentUser);}
+  else setAuthUI();
+ });
+}else{
+ $("#accountNote").textContent="Configuration nécessaire : ajoute l'URL et la clé publique de ton projet Supabase. Voir le guide fourni.";
+ $("#openAuth").onclick=()=>openAuth("login");
+}
+function restorePlanUI(){
+ const plan=state.plan;if(!plan)return;
+ selectedZones=plan.zones||["Corps entier"];days=plan.days||3;level=plan.level||"Débutant";equipment=plan.equipment||["none"];
+ $("#username").value=plan.name||"";$("#ageRange").value=plan.age||"13-15";$("#gymAccess").value=plan.gym||"no";
+ document.querySelectorAll("[data-equipment]").forEach(x=>x.classList.toggle("active",equipment.includes(x.dataset.equipment)));
+ document.querySelectorAll("[data-zone]").forEach(x=>x.classList.toggle("active",selectedZones.includes(x.dataset.zone)));
+ document.querySelectorAll("[data-days]").forEach(x=>x.classList.toggle("active",+x.dataset.days===days));
+ document.querySelectorAll("[data-level]").forEach(x=>x.classList.toggle("active",x.dataset.level===level));
+}
+// Enregistre localement pour garder le site utilisable hors connexion, puis synchronise si connecté.
+const baseSave = save;
+save = function(){
+ localStorage.setItem("fitzone-state",JSON.stringify(state));
+ renderChallenges();renderStats();renderWeekPlan();renderBadges();scheduleCloudSave();
+ if(currentUser)syncLeaderboard();
+};
+let timerSeconds=0,timerInterval=null;
+function showTimer(){
+ const mm=String(Math.floor(timerSeconds/60)).padStart(2,'0');
+ const ss=String(timerSeconds%60).padStart(2,'0');
+ $('#timerDisplay').textContent=mm+':'+ss;
+}
+$('#timerStart').onclick=()=>{
+ if(timerInterval)return;
+ $('#timerStatus').textContent='Séance en cours — à ton rythme !';
+ timerInterval=setInterval(()=>{timerSeconds++;showTimer()},1000);
+};
+$('#timerPause').onclick=()=>{
+ if(timerInterval){clearInterval(timerInterval);timerInterval=null}
+ $('#timerStatus').textContent='Pause. Reprends quand tu es prêt.';
+};
+$('#timerReset').onclick=()=>{
+ if(timerInterval)clearInterval(timerInterval);
+ timerInterval=null;timerSeconds=0;showTimer();$('#timerStatus').textContent='Chronomètre réinitialisé.';
+};
+// ===== FITZONE V7 : défis personnels et classement communautaire =====
+let leaderboardMode='weekly';
+function getWeekStart(date=new Date()){
+ const d=new Date(date);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));
+ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function getWeekSessions(){
+ const start=getWeekStart();
+ return (state.sessions||[]).filter(x=>x.date>=start).length;
+}
+function renderChallenges(){
+ const box=$('#challengeGrid');if(!box)return;
+ state.challengeClaims=state.challengeClaims||{};
+ state.challengeXP=Number(state.challengeXP)||0;
+ const week=getWeekStart(),count=getWeekSessions();
+ const items=[
+  {id:'weekly1',icon:'🌱',name:'Premier défi',desc:'Valide 1 séance cette semaine',goal:1,reward:25},
+  {id:'weekly2',icon:'⚡',name:'Belle progression',desc:'Valide 2 séances cette semaine',goal:2,reward:50},
+  {id:'weekly3',icon:'🏆',name:'Défi de la semaine',desc:'Valide 3 séances cette semaine',goal:3,reward:75}
+ ];
+ let earned=0;
+ items.forEach(item=>{
+  const key=week+':'+item.id;
+  if(count>=item.goal&&!state.challengeClaims[key]){state.challengeClaims[key]=true;state.challengeXP+=item.reward;earned+=item.reward;}
+ });
+ if(earned){localStorage.setItem('fitzone-state',JSON.stringify(state));$('#challengeMessage').textContent='🎉 Défi(s) terminé(s) ! +'+earned+' XP bonus. Bien joué, pense aussi à récupérer.';}
+ else $('#challengeMessage').textContent='Les défis se renouvellent chaque lundi. Tu peux les compléter à ton rythme.';
+ box.innerHTML='';
+ items.forEach(item=>{
+  const done=!!state.challengeClaims[week+':'+item.id],progress=Math.min(100,Math.round(count/item.goal*100));
+  const el=document.createElement('div');el.className='challenge-card'+(done?' done':'');
+  el.innerHTML='<span>'+item.icon+'</span><strong>'+item.name+'</strong><small>'+item.desc+'</small><div class="challenge-progress"><div style="width:'+progress+'%"></div></div><div class="challenge-meta"><span>'+(done?'✓ Terminé':Math.min(count,item.goal)+' / '+item.goal+' séance(s)')+'</span><b>+'+item.reward+' XP</b></div>';
+  box.appendChild(el);
+ });
+ if(earned&&currentUser)scheduleCloudSave();
+}
+async function syncLeaderboard(){
+ if(!supabaseReady||!currentUser){renderLeaderboardMessage();return;}
+ const sessions=state.sessions||[];
+ const totalXP=sessions.length*50+(Number(state.challengeXP)||0);
+ const weekly=getWeekSessions();
+ let username=(currentUsername||currentUser.user_metadata?.username||'').toString().slice(0,20);
+ if(!username||username.includes('@')){
+  const {data:profile}=await supabaseClient.from('fitzone_profiles').select('username').eq('id',currentUser.id).maybeSingle();
+  username=(profile?.username||('Membre_'+currentUser.id.slice(0,6))).toString().slice(0,20);
+ }
+ const payload={user_id:currentUser.id,username,total_xp:totalXP,weekly_sessions:weekly,updated_at:new Date().toISOString()};
+ const {error}=await supabaseClient.from('fitzone_leaderboard').upsert(payload,{onConflict:'user_id'});
+ if(error){console.warn('Classement non synchronisé:',error.message);$('#leaderboardNote').textContent='Le classement n’est pas encore activé : applique la migration SQL FITZONE V7.';}
+ await loadLeaderboard();
+}
+function renderLeaderboardMessage(){
+ const box=$('#leaderboardContent');if(!box)return;
+ if(!supabaseReady){box.innerHTML='<div class="empty-state">Mode invité : les défis personnels fonctionnent, mais le classement entre comptes sera disponible après la configuration Supabase.</div>';return;}
+ if(!currentUser){box.innerHTML='<div class="empty-state">Connecte-toi pour apparaître dans le classement et voir les autres membres.</div>';return;}
+ box.innerHTML='<div class="empty-state">Chargement du classement…</div>';
+}
+async function loadLeaderboard(){
+ const box=$('#leaderboardContent');if(!box)return;
+ if(!supabaseReady||!currentUser){renderLeaderboardMessage();return;}
+ const field=leaderboardMode==='weekly'?'weekly_sessions':'total_xp';
+ const {data,error}=await supabaseClient.from('fitzone_leaderboard').select('user_id,username,total_xp,weekly_sessions').order(field,{ascending:false}).order('username',{ascending:true}).limit(50);
+ if(error){box.innerHTML='<div class="empty-state">Classement indisponible. Applique la migration SQL FITZONE V7 puis actualise.</div>';$('#leaderboardNote').textContent='Erreur Supabase : '+error.message;return;}
+ if(!data||!data.length){box.innerHTML='<div class="empty-state">Pas encore de participant. Les membres apparaîtront après leur première séance validée.</div>';return;}
+ box.innerHTML='';
+ data.forEach((row,i)=>{
+  const el=document.createElement('div');el.className='rank-row'+(row.user_id===currentUser.id?' me':'');
+  const score=leaderboardMode==='weekly'?(row.weekly_sessions||0)+' séance(s)':(row.total_xp||0)+' XP';
+  const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);
+  el.innerHTML='<div class="rank-number">'+medal+'</div><div><span class="rank-name"></span><small class="rank-detail">'+(row.user_id===currentUser.id?'Toi · ':'')+'Membre FITZONE</small></div><div class="rank-score">'+score+'</div>';
+  el.querySelector('.rank-name').textContent=row.username||'Membre';box.appendChild(el);
+ });
+ $('#leaderboardNote').textContent='Classement amical des 50 premiers membres. Les résultats reposent sur les séances enregistrées dans FITZONE.';
+}
+$('#rankWeekly').onclick=()=>{leaderboardMode='weekly';$('#rankWeekly').classList.add('active');$('#rankAllTime').classList.remove('active');loadLeaderboard()};
+$('#rankAllTime').onclick=()=>{leaderboardMode='all';$('#rankAllTime').classList.add('active');$('#rankWeekly').classList.remove('active');loadLeaderboard()};
+$('#refreshLeaderboard').onclick=()=>syncLeaderboard();
+
+function renderWeekPlan(){
+ const box=$('#weekPlanGrid');if(!box)return;box.innerHTML='';
+ const labels=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+ const count=state.plan?.days||3;
+ const suggested=count===2?[0,3]:count===3?[0,2,5]:count===4?[0,1,3,5]:[0,1,2,4,5];
+ labels.forEach((day,i)=>{
+  const cell=document.createElement('div');cell.className='week-cell';
+  cell.innerHTML='<b>'+day+'</b>'+(suggested.includes(i)?'🏃<br>Séance':'🌿<br>Repos');
+  box.appendChild(cell);
+ });
+}
+function renderBadges(){
+ const box=$('#badgeGrid');if(!box)return;
+ const sessions=state.sessions||[];
+ const total=sessions.length;
+ const activeDays=new Set(sessions.map(x=>x.date)).size;
+ const catalog=[
+  {id:'first',icon:'🌱',name:'Premier pas',desc:'Valider ta première séance',value:total,goal:1,unit:'séance'},
+  {id:'3sessions',icon:'🔥',name:'Ça démarre !',desc:'Valider 3 séances',value:total,goal:3,unit:'séances'},
+  {id:'5sessions',icon:'⚡',name:'Belle lancée',desc:'Valider 5 séances',value:total,goal:5,unit:'séances'},
+  {id:'10sessions',icon:'🏅',name:'Persévérant',desc:'Valider 10 séances',value:total,goal:10,unit:'séances'},
+  {id:'20sessions',icon:'💎',name:'Régularité',desc:'Valider 20 séances',value:total,goal:20,unit:'séances'},
+  {id:'50sessions',icon:'👑',name:'Champion de constance',desc:'Valider 50 séances',value:total,goal:50,unit:'séances'},
+  {id:'100sessions',icon:'🏆',name:'Centurion',desc:'Valider 100 séances',value:total,goal:100,unit:'séances'},
+  {id:'7days',icon:'🌈',name:'Une semaine active',desc:'Bouger sur 7 jours différents',value:activeDays,goal:7,unit:'jours actifs'},
+  {id:'30days',icon:'🌟',name:'Un mois de motivation',desc:'Atteindre 30 jours actifs',value:activeDays,goal:30,unit:'jours actifs'},
+  {id:'50days',icon:'🚀',name:'Toujours en route',desc:'Atteindre 50 jours actifs',value:activeDays,goal:50,unit:'jours actifs'},
+  {id:'100days',icon:'💯',name:'Légende FITZONE',desc:'Atteindre 100 jours actifs',value:activeDays,goal:100,unit:'jours actifs'}
+ ];
+ const xp=total*50+(Number(state.challengeXP)||0);
+ const level=Math.floor(xp/250)+1;
+ const levelNames=['🌱 Départ','✨ Explorateur','🔥 Motivé','💪 Régulier','⚡ Déterminé','💎 Expert','👑 Légende'];
+ const levelName=levelNames[Math.min(level-1,levelNames.length-1)]||'👑 Légende';
+ const current=(xp%250),next=250-current;
+ $('#levelName').textContent='Niveau '+level+' · '+levelName;
+ $('#xpTotal').textContent=xp+' XP';
+ $('#xpBar').style.width=(current/250*100)+'%';
+ $('#xpNext').textContent=level>=levelNames.length?'Niveau maximum atteint : bravo !':next+' XP pour le prochain niveau';
+ box.innerHTML='';
+ let justUnlocked=[];
+ state.badgesSeen=state.badgesSeen||[];
+ catalog.forEach(item=>{
+  const unlocked=item.value>=item.goal;
+  if(unlocked&&!state.badgesSeen.includes(item.id))justUnlocked.push(item);
+  const card=document.createElement('div');
+  card.className='achievement '+(unlocked?'unlocked':'locked');
+  const progress=Math.min(100,Math.round(item.value/item.goal*100));
+  card.innerHTML='<span class="trophy-icon">'+item.icon+'</span><strong>'+item.name+'</strong><small>'+item.desc+'</small><div class="badge-progress">'+(unlocked?'✓ Débloqué':Math.min(item.value,item.goal)+' / '+item.goal+' '+item.unit)+'</div><div class="level-track" style="height:5px;margin-top:6px"><div style="width:'+progress+'%"></div></div>';
+  box.appendChild(card);
+ });
+ if(justUnlocked.length){
+  $('#badgeMessage').textContent='🎉 Nouveau badge débloqué : '+justUnlocked.map(x=>x.name).join(', ')+' !';
+  state.badgesSeen=[...state.badgesSeen,...justUnlocked.map(x=>x.id)];
+  localStorage.setItem('fitzone-state',JSON.stringify(state));
+  if(typeof activeProfile!=='undefined'&&activeProfile){
+   const profiles=JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}');
+   if(profiles[activeProfile]){profiles[activeProfile].state=state;localStorage.setItem(PROFILE_KEY,JSON.stringify(profiles))}
+  }
+ }else{
+  const nextBadge=catalog.find(x=>x.value<x.goal);
+  $('#badgeMessage').textContent=nextBadge?'🎯 Prochain objectif : '+nextBadge.name+' — encore '+(nextBadge.goal-nextBadge.value)+' '+nextBadge.unit+'.':'🏆 Tous les trophées sont débloqués. Quelle progression !';
+ }
+}
+setAuthUI();renderChallenges();renderStats();renderWorkout();renderWeekPlan();renderBadges();renderLeaderboardMessage();
+
+</script>
+</body>
+</html>
