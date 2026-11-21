@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -112,6 +113,46 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
 @media(max-width:760px){.challenge-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.challenge-grid{grid-template-columns:1fr}}
 
+
+/* FITZONE V8 — navigation mobile */
+@media(max-width:760px){
+  html{scroll-padding-top:16px;scroll-padding-bottom:90px}
+  body{padding-bottom:86px}
+  .wrap{padding:12px}
+  header{gap:10px}
+  .hero{padding:20px;border-radius:22px;grid-template-columns:1fr}
+  .hero h1{font-size:clamp(2rem,9vw,3rem)}
+  .hero-art{display:none}
+  .navlinks{display:none}
+  .grid{gap:12px;margin-top:14px}
+  .card{padding:16px;border-radius:18px}
+  .card:hover{transform:none}
+  .stats{gap:7px}
+  .stat{padding:10px 7px;text-align:center}
+  .stat strong{font-size:1.35rem}
+  .choices{gap:7px}
+  .choice{padding:9px 10px}
+  .timerbox{align-items:flex-start}
+  .timer-controls{width:100%}
+  .timer-controls button{flex:1}
+  .rank-row{grid-template-columns:30px minmax(0,1fr) auto;gap:7px;padding:9px}
+  .mobile-nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(11,16,32,.96);border-top:1px solid #ffffff20;
+    box-shadow:0 -8px 28px #0007;backdrop-filter:blur(14px)
+  }
+  .mobile-nav a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:3px;min-height:54px;border-radius:12px;text-decoration:none;
+    color:#b6bfd8;font-size:.7rem;font-weight:750
+  }
+  .mobile-nav a span:first-child{font-size:1.2rem;line-height:1.2}
+  .mobile-nav a.active{color:#fff;background:linear-gradient(130deg,#49347c88,#174b4b88);outline:1px solid #a78bfa66}
+}
+@media(min-width:761px){.mobile-nav{display:none}}
+
 </style>
 
 </head>
@@ -131,7 +172,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
 <nav class="navlinks" aria-label="Navigation principale">
  <a href="#setup">🎯 Programme</a><a href="#workoutCard">🏃 Séance</a><a href="#tracking">📊 Suivi</a><a href="#challenges">🎯 Défis</a><a href="#leaderboard">🥇 Classement</a><a href="#achievements">🏆 Badges</a>
 </nav>
-<section class="hero">
+<section class="hero" id="home">
  <div><div class="eyebrow">⚡ Bouger à ton rythme</div><h1>Construis tes habitudes.<br><span class="gradient">Progresse chaque jour.</span></h1><p>Choisis les zones que tu souhaites renforcer, organise tes séances et retrouve des idées de repas équilibrés.</p><button class="primary" onclick="document.querySelector('#setup').scrollIntoView({behavior:'smooth'})">Créer mon programme ↓</button></div>
  <div class="hero-art" aria-label="Illustration sportive">🏋️‍♀️</div>
 </section>
@@ -222,6 +263,14 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
 </div>
 <footer>FITZONE ⚡ · Une séance à la fois. Tes données sont conservées sur cet appareil en mode invité et synchronisées en ligne lorsque tu es connecté.</footer>
 </div>
+
+
+<nav class="mobile-nav" aria-label="Navigation mobile">
+ <a href="#home" class="active"><span>🏠</span><span>Accueil</span></a>
+ <a href="#workoutCard"><span>🏃</span><span>Séances</span></a>
+ <a href="#challenges"><span>🎯</span><span>Défis</span></a>
+ <a href="#tracking"><span>👤</span><span>Profil</span></a>
+</nav>
 
 <div class="auth-overlay hidden" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
  <div class="auth-modal card">
@@ -676,6 +725,15 @@ function renderBadges(){
  }
 }
 setAuthUI();renderChallenges();renderStats();renderWorkout();renderWeekPlan();renderBadges();renderLeaderboardMessage();
+
+
+// Navigation mobile : indique l'onglet choisi sans modifier les fonctionnalités existantes.
+document.querySelectorAll('.mobile-nav a').forEach(link=>{
+ link.addEventListener('click',()=>{
+  document.querySelectorAll('.mobile-nav a').forEach(item=>item.classList.remove('active'));
+  link.classList.add('active');
+ });
+});
 
 </script>
 </body>
