@@ -113,6 +113,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
 @media(max-width:420px){.challenge-grid{grid-template-columns:1fr}}
 
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -236,7 +237,11 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding:35px 10px}
   <div id="loginFields">
    <label for="authIdentity">Adresse e-mail ou pseudo</label><input id="authIdentity" type="text" autocomplete="username" placeholder="E-mail ou pseudo">
   </div>
-  <label for="authPassword">Mot de passe</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="8 caractères minimum">
+<label for="authPassword">Mot de passe</label>
+<div class="password-field">
+  <input id="authPassword" type="password" autocomplete="current-password" placeholder="8 caractères minimum">
+  <button type="button" id="togglePassword" aria-label="Afficher le mot de passe">👁️</button>
+</div>
   <button class="primary auth-submit" id="authSubmit">Se connecter</button>
   <button class="text-button" id="forgotPassword">Mot de passe oublié ?</button>
   <p class="auth-message" id="authMessage" aria-live="polite"></p>
@@ -470,6 +475,13 @@ $("#forgotPassword").onclick=handleForgotPassword;
 $("#logoutAccount").onclick=handleLogout;
 $("#authPassword").addEventListener("keydown",e=>{if(e.key==="Enter")$("#authSubmit").click()});
 $("#authIdentity").addEventListener("keydown",e=>{if(e.key==="Enter")$("#authSubmit").click()});
+ $("#togglePassword").addEventListener("click",()=>{
+ const password=$("#authPassword");
+ const visible=password.type==="password";
+ password.type=visible?"text":"password";
+ $("#togglePassword").textContent=visible?"🙈":"👁️";
+ $("#togglePassword").setAttribute("aria-label",visible?"Masquer le mot de passe":"Afficher le mot de passe");
+});
 if(supabaseReady){
  supabaseClient.auth.onAuthStateChange((event,session)=>{
   if(event==="SIGNED_IN"&&session?.user){
